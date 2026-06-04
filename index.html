@@ -8,14 +8,6 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-<script>
-  document.querySelectorAll('.canvas-area').forEach(el => {
-    const s = el.offsetWidth / 600;
-    el.style.setProperty('--s', s);
-    el.style.height = (400 * s) + 'px';
-  });
-</script>
-    
     body {
       background: #f5f0e8;
       font-family: 'Nanum Gothic', sans-serif;
@@ -93,12 +85,12 @@
     }
 
     .canvas-area iframe {
-      width: 100%;
-      height: 100%;
-      transform: scale(0.6);
+      width: 600px;
+      height: 400px;
       transform-origin: top left;
       border: none;
       pointer-events: none;
+      display: block;
     }
 
     .overlay {
@@ -209,7 +201,6 @@
 
   <div class="gallery">
 
-
     <div class="artwork">
       <div class="frame">
         <div class="canvas-area">
@@ -229,7 +220,6 @@
         <div class="nameplate-line"></div>
       </div>
     </div>
-
 
     <div class="artwork">
       <div class="frame">
@@ -251,7 +241,6 @@
       </div>
     </div>
 
-
     <div class="artwork">
       <div class="frame">
         <div class="canvas-area">
@@ -271,7 +260,6 @@
         <div class="nameplate-line"></div>
       </div>
     </div>
-
 
     <div class="artwork">
       <div class="frame">
@@ -298,6 +286,19 @@
   <footer>
     <p>p5JS Coding Portfolio · 2026</p>
   </footer>
+
+  <script>
+    function fitCanvases() {
+      document.querySelectorAll('.canvas-area').forEach(function(el) {
+        var s = el.offsetWidth / 600;
+        var iframe = el.querySelector('iframe');
+        iframe.style.transform = 'scale(' + s + ')';
+        el.style.height = (400 * s) + 'px';
+      });
+    }
+    fitCanvases();
+    window.addEventListener('resize', fitCanvases);
+  </script>
 
 </body>
 </html>
