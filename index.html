@@ -8,6 +8,14 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+<script>
+  document.querySelectorAll('.canvas-area').forEach(el => {
+    const s = el.offsetWidth / 600;
+    el.style.setProperty('--s', s);
+    el.style.height = (400 * s) + 'px';
+  });
+</script>
+    
     body {
       background: #f5f0e8;
       font-family: 'Nanum Gothic', sans-serif;
@@ -79,7 +87,6 @@
 
     .canvas-area {
       width: 100%;
-      aspect-ratio: 3 / 2;
       overflow: hidden;
       background: #111;
       position: relative;
