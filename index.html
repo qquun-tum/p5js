@@ -4,90 +4,90 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>p5.js 작품 전시관</title>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;600&family=Noto+Sans+KR:wght@300;400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      background: #0e0e0e;
-      color: #e8e2d9;
-      font-family: 'Noto Sans KR', sans-serif;
+      background: #f5f0e8;
+      font-family: 'Nanum Gothic', sans-serif;
+      color: #111;
       min-height: 100vh;
       padding: 0 0 80px;
     }
 
     header {
       text-align: center;
-      padding: 72px 24px 48px;
-      position: relative;
+      padding: 60px 24px 40px;
+      border-bottom: 1px solid #c8b89a;
     }
 
-    header::after {
-      content: '';
-      display: block;
-      width: 48px;
-      height: 1px;
-      background: #a08c6e;
-      margin: 32px auto 0;
-    }
-
-    .subtitle {
+    .museum-label {
       font-size: 11px;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: #a08c6e;
-      margin-bottom: 20px;
-      font-family: 'Noto Sans KR', sans-serif;
-      font-weight: 300;
+      letter-spacing: 0.3em;
+      color: #8a6f4e;
+      margin-bottom: 14px;
     }
 
     h1 {
-      font-family: 'Noto Serif KR', serif;
-      font-size: clamp(28px, 5vw, 48px);
-      font-weight: 300;
-      letter-spacing: 0.05em;
-      color: #f0ece4;
-      line-height: 1.3;
+      font-size: clamp(22px, 4vw, 38px);
+      font-weight: 700;
+      color: #1a1a1a;
+      margin-bottom: 10px;
     }
 
-    h1 span { color: #a08c6e; }
-
-    .intro {
-      margin-top: 20px;
+    .header-sub {
       font-size: 13px;
-      color: #666;
-      letter-spacing: 0.05em;
-      font-weight: 300;
+      color: #7a6650;
     }
 
     .gallery {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 2px;
-      max-width: 1100px;
-      margin: 48px auto 0;
-      padding: 0 24px;
+      gap: 48px;
+      max-width: 960px;
+      margin: 60px auto 0;
+      padding: 0 48px;
     }
 
-    .work {
+    .artwork {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* 액자 프레임 */
+    .frame {
       position: relative;
-      background: #161616;
-      overflow: hidden;
+      padding: 16px;
+      background: #7a4e28;
+      box-shadow:
+        inset 0 0 0 3px #c89060,
+        inset 0 0 0 6px #5c3616,
+        4px 6px 18px rgba(0,0,0,0.35);
+      cursor: pointer;
+      width: 100%;
     }
 
-    .work:hover .work-label {
-      opacity: 1;
-      transform: translateY(0);
+    .frame::before {
+      content: '';
+      position: absolute;
+      inset: 6px;
+      border: 1px solid rgba(255,220,160,0.25);
+      pointer-events: none;
+      z-index: 2;
     }
 
-    .iframe-wrapper {
+    /* 액자 안쪽 캔버스 영역 */
+    .canvas-area {
       width: 100%;
       aspect-ratio: 1 / 1;
       overflow: hidden;
       background: #111;
+      position: relative;
     }
 
-    .iframe-wrapper iframe {
+    .canvas-area iframe {
       width: 200%;
       height: 200%;
       transform: scale(0.5);
@@ -96,137 +96,199 @@
       pointer-events: none;
     }
 
-    .work-label {
+    /* 호버 오버레이 */
+    .overlay {
       position: absolute;
-      bottom: 0; left: 0; right: 0;
-      background: linear-gradient(transparent, rgba(0,0,0,0.85));
-      padding: 32px 20px 20px;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.62);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       opacity: 0;
-      transform: translateY(8px);
-      transition: all 0.35s ease;
+      transition: opacity 0.3s ease;
+      padding: 20px;
+      text-align: center;
     }
 
-    .work-number {
+    .frame:hover .overlay {
+      opacity: 1;
+    }
+
+    .overlay-number {
       font-size: 10px;
-      letter-spacing: 0.2em;
-      color: #a08c6e;
-      margin-bottom: 4px;
+      letter-spacing: 0.25em;
+      color: #c8a070;
+      margin-bottom: 8px;
     }
 
-    .work-title {
-      font-family: 'Noto Serif KR', serif;
-      font-size: 16px;
-      color: #f0ece4;
+    .overlay-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 8px;
     }
 
-    .work-type {
+    .overlay-desc {
+      font-size: 12px;
+      color: #ccc;
+      line-height: 1.6;
+    }
+
+    .overlay-btn {
+      margin-top: 14px;
+      padding: 6px 18px;
+      border: 1px solid #c8a070;
+      color: #c8a070;
       font-size: 11px;
-      color: #888;
-      margin-top: 3px;
+      font-family: 'Nanum Gothic', sans-serif;
+      background: transparent;
+      letter-spacing: 0.1em;
     }
 
-    .work-link-overlay {
+    /* 링크 오버레이 */
+    .link-overlay {
       position: absolute;
       inset: 0;
       z-index: 10;
+      text-decoration: none;
     }
 
-    .badge-static {
-      display: inline-block;
-      padding: 2px 8px;
-      border: 1px solid #3a3020;
-      color: #a08c6e;
-      font-size: 9px;
-      border-radius: 2px;
-      margin-bottom: 6px;
+    /* 작품 명판 */
+    .nameplate {
+      margin-top: 14px;
+      text-align: center;
+      width: 100%;
     }
 
-    .badge-motion {
-      display: inline-block;
-      padding: 2px 8px;
-      border: 1px solid #1e3028;
-      color: #5da882;
-      font-size: 9px;
-      border-radius: 2px;
-      margin-bottom: 6px;
+    .nameplate-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #1a1a1a;
+      margin-bottom: 3px;
+    }
+
+    .nameplate-sub {
+      font-size: 12px;
+      color: #7a6650;
+    }
+
+    .nameplate-line {
+      width: 32px;
+      height: 1px;
+      background: #c8b89a;
+      margin: 6px auto 0;
     }
 
     footer {
       text-align: center;
-      margin-top: 56px;
+      margin-top: 64px;
       font-size: 11px;
-      color: #333;
+      color: #a09080;
+      letter-spacing: 0.1em;
     }
 
-    @media (max-width: 600px) {
-      .gallery { grid-template-columns: 1fr; }
+    @media (max-width: 640px) {
+      .gallery {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        padding: 0 24px;
+      }
     }
   </style>
 </head>
 <body>
 
   <header>
-    <p class="subtitle">Creative Coding</p>
-    <h1>나의 <span>p5.js</span> 작품</h1>
-    <p class="intro">각 작품 위에 마우스를 올려보세요</p>
+    <p class="museum-label">CREATIVE CODING EXHIBITION · 2026</p>
+    <h1>p5.js 작품 전시관</h1>
+    <p class="header-sub">작품에 마우스를 올려보세요</p>
   </header>
 
   <div class="gallery">
 
-    <!-- 과제1: abstract -->
-    <div class="work">
-      <div class="iframe-wrapper">
-        <iframe src="abstract/index.html" scrolling="no" title="abstract"></iframe>
+    <!-- WORK 01 추상화 -->
+    <div class="artwork">
+      <div class="frame">
+        <div class="canvas-area">
+          <iframe src="abstract/index.html" scrolling="no" title="추상화"></iframe>
+          <div class="overlay">
+            <div class="overlay-number">WORK 01</div>
+            <div class="overlay-title">추상화</div>
+            <div class="overlay-desc">도형과 색으로 표현한 정적 추상 작품</div>
+            <div class="overlay-btn">VIEW →</div>
+          </div>
+          <a class="link-overlay" href="abstract/index.html" target="_blank"></a>
+        </div>
       </div>
-      <div class="work-label">
-        <div class="work-number">WORK 01</div>
-        <div class="badge-static">STATIC</div>
-        <div class="work-title">abstract</div>
-        <div class="work-type">Abstract Art</div>
+      <div class="nameplate">
+        <div class="nameplate-title">추상화</div>
+        <div class="nameplate-sub">Abstract Art · Static</div>
+        <div class="nameplate-line"></div>
       </div>
-      <a class="work-link-overlay" href="abstract/index.html" target="_blank"></a>
     </div>
 
-    <!-- 과제4: moving_abstract -->
-    <div class="work">
-      <div class="iframe-wrapper">
-        <iframe src="moving_abstract/index.html" scrolling="no" title="moving_abstract"></iframe>
+    <!-- WORK 02 추상화 모션 -->
+    <div class="artwork">
+      <div class="frame">
+        <div class="canvas-area">
+          <iframe src="moving_abstract/index.html" scrolling="no" title="추상화 모션"></iframe>
+          <div class="overlay">
+            <div class="overlay-number">WORK 02</div>
+            <div class="overlay-title">추상화 모션</div>
+            <div class="overlay-desc">움직임과 색 변화를 더한 추상 애니메이션</div>
+            <div class="overlay-btn">VIEW →</div>
+          </div>
+          <a class="link-overlay" href="moving_abstract/index.html" target="_blank"></a>
+        </div>
       </div>
-      <div class="work-label">
-        <div class="work-number">WORK 04</div>
-        <div class="badge-motion">MOTION</div>
-        <div class="work-title">moving_abstract</div>
-        <div class="work-type">Portrait in Motion</div>
+      <div class="nameplate">
+        <div class="nameplate-title">추상화 모션</div>
+        <div class="nameplate-sub">Abstract Art · Motion</div>
+        <div class="nameplate-line"></div>
       </div>
-      <a class="work-link-overlay" href="moving_abstract/index.html" target="_blank"></a>
     </div>
 
-    <!-- 과제2: portrait -->
-    <div class="work">
-      <div class="iframe-wrapper">
-        <iframe src="portrait/index.html" scrolling="no" title="portrait"></iframe>
+    <!-- WORK 03 초상화 -->
+    <div class="artwork">
+      <div class="frame">
+        <div class="canvas-area">
+          <iframe src="portrait/index.html" scrolling="no" title="초상화"></iframe>
+          <div class="overlay">
+            <div class="overlay-number">WORK 03</div>
+            <div class="overlay-title">초상화</div>
+            <div class="overlay-desc">p5.js로 그린 정적 인물 초상화</div>
+            <div class="overlay-btn">VIEW →</div>
+          </div>
+          <a class="link-overlay" href="portrait/index.html" target="_blank"></a>
+        </div>
       </div>
-      <div class="work-label">
-        <div class="work-number">WORK 02</div>
-        <div class="badge-motion">MOTION</div>
-        <div class="work-title">portrait</div>
-        <div class="work-type">Abstract Art in Motion</div>
+      <div class="nameplate">
+        <div class="nameplate-title">초상화</div>
+        <div class="nameplate-sub">Portrait · Static</div>
+        <div class="nameplate-line"></div>
       </div>
-      <a class="work-link-overlay" href="portrait/index.html" target="_blank"></a>
     </div>
 
-    <!-- 과제3: moving_portrait -->
-    <div class="work">
-      <div class="iframe-wrapper">
-        <iframe src="moving_portrait/index.html" scrolling="no" title="moving_portrait"></iframe>
+    <!-- WORK 04 초상화 모션 -->
+    <div class="artwork">
+      <div class="frame">
+        <div class="canvas-area">
+          <iframe src="moving_portrait/index.html" scrolling="no" title="초상화 모션"></iframe>
+          <div class="overlay">
+            <div class="overlay-number">WORK 04</div>
+            <div class="overlay-title">초상화 모션</div>
+            <div class="overlay-desc">초상화에 움직임을 부여한 애니메이션 작품</div>
+            <div class="overlay-btn">VIEW →</div>
+          </div>
+          <a class="link-overlay" href="moving_portrait/index.html" target="_blank"></a>
+        </div>
       </div>
-      <div class="work-label">
-        <div class="work-number">WORK 03</div>
-        <div class="badge-static">STATIC</div>
-        <div class="work-title">moving_portrait</div>
-        <div class="work-type">Portrait</div>
+      <div class="nameplate">
+        <div class="nameplate-title">초상화 모션</div>
+        <div class="nameplate-sub">Portrait · Motion</div>
+        <div class="nameplate-line"></div>
       </div>
-      <a class="work-link-overlay" href="moving_portrait/index.html" target="_blank"></a>
     </div>
 
   </div>
