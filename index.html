@@ -56,7 +56,6 @@
       align-items: center;
     }
 
-    /* 액자 프레임 */
     .frame {
       position: relative;
       padding: 16px;
@@ -78,25 +77,23 @@
       z-index: 2;
     }
 
-    /* 액자 안쪽 캔버스 영역 */
     .canvas-area {
       width: 100%;
-      aspect-ratio: 1 / 1;
+      aspect-ratio: 3 / 2;
       overflow: hidden;
       background: #111;
       position: relative;
     }
 
     .canvas-area iframe {
-      width: 200%;
-      height: 200%;
-      transform: scale(0.5);
+      width: 166.7%;
+      height: 166.7%;
+      transform: scale(0.6);
       transform-origin: top left;
       border: none;
       pointer-events: none;
     }
 
-    /* 호버 오버레이 */
     .overlay {
       position: absolute;
       inset: 0;
@@ -146,7 +143,6 @@
       letter-spacing: 0.1em;
     }
 
-    /* 링크 오버레이 */
     .link-overlay {
       position: absolute;
       inset: 0;
@@ -154,7 +150,6 @@
       text-decoration: none;
     }
 
-    /* 작품 명판 */
     .nameplate {
       margin-top: 14px;
       text-align: center;
@@ -207,7 +202,7 @@
 
   <div class="gallery">
 
-    <!-- WORK 01 추상화 -->
+    <!-- WORK 01 시공간 -->
     <div class="artwork">
       <div class="frame">
         <div class="canvas-area">
@@ -215,7 +210,7 @@
           <div class="overlay">
             <div class="overlay-number">WORK 01</div>
             <div class="overlay-title">추상화</div>
-            <div class="overlay-desc">도형과 색으로 표현한 정적 추상 작품</div>
+            <div class="overlay-desc">행성의 중력으로 휘어지는 시공간을 표현한 작품이다.</div>
             <div class="overlay-btn">VIEW →</div>
           </div>
           <a class="link-overlay" href="abstract/index.html" target="_blank"></a>
@@ -228,7 +223,7 @@
       </div>
     </div>
 
-    <!-- WORK 02 추상화 모션 -->
+    <!-- WORK 02 진화 -->
     <div class="artwork">
       <div class="frame">
         <div class="canvas-area">
@@ -236,7 +231,7 @@
           <div class="overlay">
             <div class="overlay-number">WORK 02</div>
             <div class="overlay-title">추상화 모션</div>
-            <div class="overlay-desc">움직임과 색 변화를 더한 추상 애니메이션</div>
+            <div class="overlay-desc">행성이 진화하며 시공간이 뒤틀리면 어떨까를 상상한 작품이다.</div>
             <div class="overlay-btn">VIEW →</div>
           </div>
           <a class="link-overlay" href="moving_abstract/index.html" target="_blank"></a>
@@ -249,7 +244,7 @@
       </div>
     </div>
 
-    <!-- WORK 03 초상화 -->
+    <!-- WORK 03 나 -->
     <div class="artwork">
       <div class="frame">
         <div class="canvas-area">
@@ -257,7 +252,7 @@
           <div class="overlay">
             <div class="overlay-number">WORK 03</div>
             <div class="overlay-title">초상화</div>
-            <div class="overlay-desc">p5.js로 그린 정적 인물 초상화</div>
+            <div class="overlay-desc">작가는 웃을 때 입이 v가 된다고 한다.</div>
             <div class="overlay-btn">VIEW →</div>
           </div>
           <a class="link-overlay" href="portrait/index.html" target="_blank"></a>
@@ -270,7 +265,7 @@
       </div>
     </div>
 
-    <!-- WORK 04 초상화 모션 -->
+    <!-- WORK 04 감정 -->
     <div class="artwork">
       <div class="frame">
         <div class="canvas-area">
@@ -278,7 +273,7 @@
           <div class="overlay">
             <div class="overlay-number">WORK 04</div>
             <div class="overlay-title">초상화 모션</div>
-            <div class="overlay-desc">초상화에 움직임을 부여한 애니메이션 작품</div>
+            <div class="overlay-desc">S, O, N을 누르면 변화가 생긴다고 한다.</div>
             <div class="overlay-btn">VIEW →</div>
           </div>
           <a class="link-overlay" href="moving_portrait/index.html" target="_blank"></a>
