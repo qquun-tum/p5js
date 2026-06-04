@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>나의 p5.js 작품</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;600&family=Noto+Sans+KR:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #0e0e0e;
+      color: #e8e2d9;
+      font-family: 'Noto Sans KR', sans-serif;
+      min-height: 100vh;
+      padding: 0 0 80px;
+    }
+
+    header {
+      text-align: center;
+      padding: 72px 24px 48px;
+      position: relative;
+    }
+
+    header::after {
+      content: '';
+      display: block;
+      width: 48px;
+      height: 1px;
+      background: #a08c6e;
+      margin: 32px auto 0;
+    }
+
+    .subtitle {
+      font-size: 11px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #a08c6e;
+      margin-bottom: 20px;
+      font-family: 'Noto Sans KR', sans-serif;
+      font-weight: 300;
+    }
+
+    h1 {
+      font-family: 'Noto Serif KR', serif;
+      font-size: clamp(28px, 5vw, 48px);
+      font-weight: 300;
+      letter-spacing: 0.05em;
+      color: #f0ece4;
+      line-height: 1.3;
+    }
+
+    h1 span { color: #a08c6e; }
+
+    .intro {
+      margin-top: 20px;
+      font-size: 13px;
+      color: #666;
+      letter-spacing: 0.05em;
+      font-weight: 300;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      max-width: 1100px;
+      margin: 48px auto 0;
+      padding: 0 24px;
+    }
+
+    .work {
+      position: relative;
+      background: #161616;
+      overflow: hidden;
+    }
+
+    .work:hover .work-label {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .iframe-wrapper {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      overflow: hidden;
+      background: #111;
+    }
+
+    .iframe-wrapper iframe {
+      width: 200%;
+      height: 200%;
+      transform: scale(0.5);
+      transform-origin: top left;
+      border: none;
+      pointer-events: none;
+    }
+
+    .work-label {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      background: linear-gradient(transparent, rgba(0,0,0,0.85));
+      padding: 32px 20px 20px;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: all 0.35s ease;
+    }
+
+    .work-number {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      color: #a08c6e;
+      margin-bottom: 4px;
+    }
+
+    .work-title {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 16px;
+      color: #f0ece4;
+    }
+
+    .work-type {
+      font-size: 11px;
+      color: #888;
+      margin-top: 3px;
+    }
+
+    .work-link-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 10;
+    }
+
+    .badge-static {
+      display: inline-block;
+      padding: 2px 8px;
+      border: 1px solid #3a3020;
+      color: #a08c6e;
+      font-size: 9px;
+      border-radius: 2px;
+      margin-bottom: 6px;
+    }
+
+    .badge-motion {
+      display: inline-block;
+      padding: 2px 8px;
+      border: 1px solid #1e3028;
+      color: #5da882;
+      font-size: 9px;
+      border-radius: 2px;
+      margin-bottom: 6px;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 56px;
+      font-size: 11px;
+      color: #333;
+    }
+
+    @media (max-width: 600px) {
+      .gallery { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <p class="subtitle">Creative Coding</p>
+    <h1>나의 <span>p5.js</span> 작품</h1>
+    <p class="intro">각 작품 위에 마우스를 올려보세요</p>
+  </header>
+
+  <div class="gallery">
+
+    <!-- 과제1: 추상화 -->
+    <div class="work">
+      <div class="iframe-wrapper">
+        <iframe src="추상화/index.html" scrolling="no" title="추상화"></iframe>
+      </div>
+      <div class="work-label">
+        <div class="work-number">WORK 01</div>
+        <div class="badge-static">STATIC</div>
+        <div class="work-title">추상화</div>
+        <div class="work-type">Abstract Art</div>
+      </div>
+      <a class="work-link-overlay" href="추상화/index.html" target="_blank"></a>
+    </div>
+
+    <!-- 과제4: 초상화 모션 -->
+    <div class="work">
+      <div class="iframe-wrapper">
+        <iframe src="초상화 모션/index.html" scrolling="no" title="초상화 모션"></iframe>
+      </div>
+      <div class="work-label">
+        <div class="work-number">WORK 04</div>
+        <div class="badge-motion">MOTION</div>
+        <div class="work-title">초상화 모션</div>
+        <div class="work-type">Portrait in Motion</div>
+      </div>
+      <a class="work-link-overlay" href="초상화 모션/index.html" target="_blank"></a>
+    </div>
+
+    <!-- 과제2: 추상화 모션 -->
+    <div class="work">
+      <div class="iframe-wrapper">
+        <iframe src="추상화모션/index.html" scrolling="no" title="추상화 모션"></iframe>
+      </div>
+      <div class="work-label">
+        <div class="work-number">WORK 02</div>
+        <div class="badge-motion">MOTION</div>
+        <div class="work-title">추상화 모션</div>
+        <div class="work-type">Abstract Art in Motion</div>
+      </div>
+      <a class="work-link-overlay" href="추상화모션/index.html" target="_blank"></a>
+    </div>
+
+    <!-- 과제3: 초상화 -->
+    <div class="work">
+      <div class="iframe-wrapper">
+        <iframe src="초상화/index.html" scrolling="no" title="초상화"></iframe>
+      </div>
+      <div class="work-label">
+        <div class="work-number">WORK 03</div>
+        <div class="badge-static">STATIC</div>
+        <div class="work-title">초상화</div>
+        <div class="work-type">Portrait</div>
+      </div>
+      <a class="work-link-overlay" href="초상화/index.html" target="_blank"></a>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>p5.js Creative Coding Portfolio · 2026</p>
+  </footer>
+
+</body>
+</html>
